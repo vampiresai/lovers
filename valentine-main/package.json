@@ -1,0 +1,10 @@
+{
+  "name": "valentine-main-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix \"valentine-main/valentine's-for-riah (2)\" run dev",
+    "build": "npm --prefix \"valentine-main/valentine's-for-riah (2)\" run build",
+    "preview": "npm --prefix \"valentine-main/valentine's-for-riah (2)\" run preview",
+    "postinstall": "npm --prefix \"valentine-main/valentine's-for-riah (2)\" install"
+  }
+}
