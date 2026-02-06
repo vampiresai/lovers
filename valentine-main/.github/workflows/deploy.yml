@@ -27,18 +27,18 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        working-directory: valentine-main/valentine-main/app
-        run: npm install
+     - name: Install dependencies
+  working-directory: valentine-main/valentine-main/app
+  run: npm install
 
-      - name: Build
-        working-directory: valentine-main/valentine-main/app
-        run: npm run build
+- name: Build
+  working-directory: valentine-main/valentine-main/app
+  run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: valentine-main/valentine-main/app/dist
+- name: Upload artifact
+  uses: actions/upload-pages-artifact@v3
+  with:
+    path: valentine-main/valentine-main/app/dist
 
   deploy:
     needs: build
