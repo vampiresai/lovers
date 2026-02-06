@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -30,14 +33,38 @@ jobs:
 
       - name: Install dependencies
         working-directory: valentine-main/valentine-main/app
-        run: npm install
+        run: npm ci
 
       - name: Build
         working-directory: valentine-main/valentine-main/app
         run: npm run build
 
       - name: Debug dist
-        run: ls -la valentine-main/valentine-main/app && ls -la valentine-main/valentine-main/app/dist
+        shell: bash
+        run: |
+          set -e
+          echo "PWD: $(pwd)"
+          echo "Repo root:"
+          ls -la
+
+          APP_DIR="valentine-main/valentine-main/app"
+          echo "App dir: $APP_DIR"
+          ls -la "$APP_DIR"
+
+          echo "Check for dist/build/out/.next:"
+          for d in dist build out .next; do
+            if [ -d "$APP_DIR/$d" ]; then
+              echo "✅ Found $APP_DIR/$d"
+              echo "Contents of $d:"
+              ls -la "$APP_DIR/$d"
+              echo "Size of $d:"
+              du -sh "$APP_DIR/$d" || true
+              echo "Top 200 files in $d (max depth 3):"
+              find "$APP_DIR/$d" -maxdepth 3 -type f | head -n 200
+            else
+              echo "❌ Not found: $APP_DIR/$d"
+            fi
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
