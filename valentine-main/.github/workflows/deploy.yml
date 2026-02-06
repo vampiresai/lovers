@@ -36,6 +36,9 @@ jobs:
         working-directory: valentine-main/valentine-main/app
         run: npm run build
 
+      - name: Debug dist
+        run: ls -la valentine-main/valentine-main/app && ls -la valentine-main/valentine-main/app/dist
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
